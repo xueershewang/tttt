@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 和之前一致使用spring-boot-starter-parent  创建项目 -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>testboot</groupId>
+  <artifactId>testboot</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+
+  <!-- 通过继承spring-boot-starter-parent 的方式来添加 Spring Boot 的相关支持,引入这个之后相关的引入就不需要添加version配置，
+        spring boot会自动选择最合适的版本进行添加 -->
+  <parent>  
+        <groupId>org.springframework.boot</groupId>  
+        <artifactId>spring-boot-starter-parent</artifactId>  
+        <version>1.5.10.RELEASE</version>  
+  </parent> 
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+   <!-- 支持 Web 应用开发，包含 Tomcat 和 spring-mvc -->
+    <dependency>  
+        <groupId>org.springframework.boot</groupId>  
+        <artifactId>spring-boot-starter-web</artifactId>  
+    </dependency> 
+
+    
+      <!-- 要构建可执行文件并将其部署到外部容器中，需要将嵌入容器依赖项标记为“提供”，
+      就是打包成功的war包想要部署在一个tomcate里，就得加入这个注解，否则启动tomcate时会报错，可以参考下面网址
+   https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-maven-plugin.html -->
+   <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope><!-- 这里代表禁用内置tomcate -->
+   </dependency>
+
+    <!-- 集成mybatis-plus,就不用集成mybaties了，mybaties-plus会帮我们管理 -->
+<!-- <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter</artifactId>
+        <version>1.3.0</version>
+    </dependency> -->
+  <!-- 集成mybatis-plus,就不用集成mybaties了，mybaties-plus会帮我们管理 -->
+  <dependency>
+    <groupId>com.baomidou</groupId>
+    <artifactId>mybatis-plus-boot-starter</artifactId>
+      <version>3.1.0</version>
+  </dependency>
+
+
+    <!-- 包含常用的测试所需的依赖，如 JUnit、Hamcrest、Mockito 和 spring-test 等 -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+    </dependency>
+    
+    <!-- mysql 数据库驱动 -->
+    <dependency>
+       <groupId>mysql</groupId>
+       <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+    
+    <!-- 引入阿里的json工具类 -->
+    <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>1.1.26</version>
+    </dependency>
+    <!-- 引入关于http请求的夹包 -->
+     <dependency>
+        <groupId>commons-httpclient</groupId>
+        <artifactId>commons-httpclient</artifactId>
+        <version>3.1</version>
+         <exclusions>  
+               <exclusion>  
+                       <groupId>commons-logging</groupId>  
+                       <artifactId>commons-logging</artifactId>    
+               </exclusion>   
+         </exclusions>  
+    </dependency>
+   
+    <!-- excel表格操作需要的jar -->
+     <dependency>  
+        <groupId>org.apache.poi</groupId>  
+        <artifactId>poi-ooxml</artifactId>  
+        <version>3.17</version>  
+    </dependency>
+    
+    
+    <!-- 集成swagger -->  
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>2.9.2</version>
+    </dependency>
+    <!-- swagger-ui -->
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger-ui</artifactId>
+        <version>2.9.2</version>
+    </dependency>
+    
+  
+  </dependencies>
+
+   <!-- Spring Boot提供了一个可选的 Maven Plugin来创建可执行的jar或是war，加上这个配置可以打war包 -->  
+  <build>  
+        <plugins>  
+            <plugin>  
+                <groupId>org.springframework.boot</groupId>  
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <!-- 下面这个配置可以将自定义的lib下的jar,打包时打到war中 -->
+               <!--  <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>${project.basedir}/src/main/resources/lib</directory>
+                            <targetPath>WEB-INF/lib</targetPath>
+                        </resource>
+                    </webResources>
+                </configuration> -->
+            </plugin>
+        </plugins>  
+    </build>  
+</project>

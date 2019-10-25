@@ -1,0 +1,46 @@
+http://192.168.205.129:8080/test/test
+http://localhost:8080/test/test
+
+http://localhost:8080/testboot-0.0.1-SNAPSHOT/test/test
+http://127.0.0.1:8080/testboot-0.0.1-SNAPSHOT/test/test
+
+
+
+
+
+
+
+
+
+
+
+https://blog.csdn.net/Y0Q2T57s/article/details/80269024 ---动态代理
+===========================问题=============================
+1：打包的时候要把引用改成jdk，才能打成包，maven update后引用自动改回了jre了在打包就失败
+2：SpringBootWarApplication 这个类没有的话，打包成功部署在tomcate里，访问由问题
+3：集成mybaties:
+      1:在application.properties里面添加xml文件所在的路径
+      2:在每个mapper接口上添加注解 @Mapper，这样比较麻烦，在启动类哪里添加@MapperScan({"com.moudel.*.mapper","org.moudel.*.mapper"}) ,每个mapper就不用加@Mapper了
+
+4:集成swgger
+ http://localhost:8080/swagger-ui.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
